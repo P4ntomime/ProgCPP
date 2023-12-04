@@ -13,7 +13,6 @@
 \usepackage{amssymb}
 \usepackage{scalerel}
 \usepackage[explicit]{titlesec}
-% \usepackage{hhline}
 \usepackage{listings}   % to use nodes inside listing see: https://texample.net/tikz/examples/tikz-listings/ 
 \usepackage{xcolor}
 \usepackage{dirtytalk}
@@ -30,7 +29,9 @@
 \usepackage{tcolorbox}
 \usepackage{textcomp}
 \usepackage{pifont}
+\usepackage{qrcode}
 
+% tikz libraries
 \usetikzlibrary{arrows, positioning,calc}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{angles}
@@ -38,17 +39,18 @@
 
 \setlength{\columnsep}{1.5mm}           % space between columns
 \setlength{\columnseprule}{0.1pt}       % vertical line between columns (set to 0 to remove)
+
 \def\semester{FS23}                     % set Semester
 \def\dozent{Prof.\ Dr.-Ing. C. Werner}  % set Dozent
 \title{ProgC++}                         % set Title
 \author{Laurin Heitzer}                 % set Author
 
-\setcounter{secnumdepth}{0}
-\definecolor{myblue}{cmyk}{1,.72,0,.38}
-\definecolor{mygray}{cmyk}{0,0,0,.75}
+\setcounter{secnumdepth}{0}             % no section numbering
+\definecolor{sectioncolor}{cmyk}{1,.72,0,.38}
+\definecolor{subsubsectioncolor}{cmyk}{0,0,0,.75}
 \definecolor{cactgreen}{RGB}{100,190, 20}
 \definecolor{redbg}{RGB}{235, 214, 214}
-\definecolor{cbred}{RGB}{255, 0, 100}       % red for colorblind people (with more blue) see: https://davidmathlogic.com/colorblind/ 
+\definecolor{cbred}{RGB}{255, 0, 100}   % red for colorblind people (with more blue) see: https://davidmathlogic.com/colorblind/ 
 
 % colors for listings (code)
 \definecolor{codeblue}{RGB}{2, 90, 200}
@@ -57,28 +59,24 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-\setlength{\parindent}{0pt}                     % no indent at beginning of paragraph
-\setlist[enumerate]{label*=-, leftmargin=*, }   % set default enumerate to - instead of 1. 2. 3. ...
-\setlist[itemize]{label=-}   % set default itemize to -
-\setlist{nosep}                                 % no space between items in lists
+\setlength{\parindent}{0pt}                         % no indent at beginning of paragraph
+\setlist[enumerate]{label*=\arabic*., leftmargin=*} % set default enumerate to - instead of 1. 2. 3. ...
+\setlist[itemize]{label*=-, leftmargin=*}           % set default itemize to - instead of bullet points
+\setlist{nosep}                                     % no space between items in lists
 
 % change font size for super- and subscript
-\catcode`_=\active
-\catcode`^=\active
-
+\catcode`_=\active%
+\catcode`^=\active%
 \newcommand_[1]{\ensuremath{\sb{\mathrm{\scaleobj{0.7}{#1}}}}}
 \newcommand^[1]{\ensuremath{\sp{\mathrm{\scaleobj{0.7}{#1}}}}}
 
-\def\subnode#1#2%
-   {\tikz[remember picture,baseline=(#1.base),inner sep=0pt,
-          outer sep=0pt,minimum width=0pt]\node(#1){#2};}
 
 % custom inline tikz node
 \newcommand{\tikznode}[2]{% from https://tex.stackexchange.com/a/402466/121799
 	\ifmmode%
-	\tikz[remember picture,baseline=(#1.base),inner sep=0pt] \node (#1) {$#2$};%
+	\tikz[remember picture,baseline= (#1.base),inner sep=0pt] \node(#1) {$#2$};%
 	\else
-	\tikz[remember picture,baseline=(#1.base),inner sep=0pt] \node (#1) {#2};%
+	\tikz[remember picture,baseline= (#1.base),inner sep=0pt] \node(#1) {#2};%
 	\fi}
 
 
@@ -100,12 +98,6 @@
 
 \makeatletter
 
-\newcommand{\bbr}[2]{\colorlet{saved}{.}\color{#1}\left(\color{saved}#2\color{#1}\right)\color{saved}}  % colored brackets
-\newcommand{\cgn}[1]{{\color{lime}#1}}      % short command for lime text
-\newcommand{\cct}[1]{{\color{cactgreen}#1}} % short command for cactgreen text
-\newcommand{\abs}[1]{\left|#1\right|}       % short command for absolute markings
-\newcommand{\real}{\mathbb{R}}              % short command for R (real numbers)
-\newcommand{\limes}[1]{\underset{#1}{\lim}} % short command for limit with arrow below
 \newcommand{\cmark}{{\color{cactgreen}\ding{51}}}   % cactgreen checkmark
 \newcommand{\xmark}{{\color{cbred}\ding{55}}}       % red xmark
 
@@ -114,7 +106,7 @@
 \newcommand{\mytclstbox}[2][columns=fullflexible]{\mybox{\lstinline[basicstyle=\sffamily\footnotesize\color{#1}, columns=fullflexible]{#2}}}
 
 \newcommand\addvmargin[1]{
-  \node[fit=(current bounding box),inner ysep=#1,inner xsep=0]{};
+  \node[fit= (current bounding box),inner ysep=#1,inner xsep=0]{};
 }
 
 \def\input@path{{./sections/}{./images/}{./tikz/}}
@@ -125,15 +117,11 @@
             {\sffamily\normalsize\bfseries}
             {\thesection}
             {0mm}
-            {\colorbox{lightgray!40}{\rule[-.2\baselineskip]{0pt}{2.5mm}\parbox{\dimexpr\columnwidth-2\fboxsep\relax}{\textcolor{myblue!40}{#1}}}}
+            {\colorbox{lightgray!40}{\rule[-.2\baselineskip]{0pt}{2.5mm}\parbox{\dimexpr\columnwidth-2\fboxsep\relax}{\textcolor{sectioncolor!40}{#1}}}}
 \titlespacing{\section}
              {0mm}
              {.2ex}
              {.2ex}
-% \renewcommand{\section}{\@startsection{section}{1}{0mm}%
-%                                 {.2ex}%
-%                                 {.2ex}%x
-%                                 {\color{myblue}\sffamily\normalsize\bfseries}}
 \renewcommand{\subsection}{\@startsection{subsection}{1}{0mm}%
                                 {.2ex}%
                                 {.2ex}%x
@@ -141,7 +129,7 @@
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{1}{0mm}%
                                 {.2ex}%
                                 {.2ex}%x
-                                {\color{mygray}\sffamily\normalsize\bfseries}}
+                                {\color{subsubsectioncolor}\sffamily\normalsize\bfseries}}
 \makeatother
 
 % listings style (code)
@@ -164,7 +152,6 @@
     tabsize=4,
 	xleftmargin=1.2em,
 	language=[11]C++,
-	% frame=single,
 	columns=[l]fullflexible	% see: https://tex.stackexchange.com/questions/99416/latex-source-code-listing-with-less-space-between-characters or manual
 }
 
@@ -179,52 +166,21 @@
 \tikzumlset{fill class=backcolour,font=\sffamily\footnotesize}
 
 \begin{document}
-
 % how to include code snippets: https://www.overleaf.com/learn/latex/Code_listing 
-
-\begin{multicols*}{3}
-	\input{sections/title}
-    
-	% DONE: Klassen
-    % DONE: add "best practices"
-    % DONE: abstract methods "= 0;"-designator
-	\input{sections/classes}	
-    
-    % DONE: references
-    \input{sections/references}
-    
-	% DONE: function pointers
-    \input{sections/functionptrs}
-    
-    % DONE: (automatic) memory management (memory maps, vptr, vtable, maybe stack)
-    % DONE: manual memory management (after delete null/nullptr), advantages/disadvantages
-    \input{sections/memory.tex}
-    
-    \input{sections/ops_n_libs.tex}
-    
-    \input{sections/formatting.tex}
-	
-    % DONE: order of declaration in .h and .cpp
-    \input{sections/styleguide.tex}
-
-	% DONE: Compiler args.
-    \input{sections/compiler}    
-    
-	% DONE: Makefiles
-    \input{sections/makefiles}
-    
-    % DONE: assertions
-    \input{sections/assertions.tex}
-    
-	% DONE: templates
-    \input{sections/templates}
-    
-	% DONE: typecasting (c++ style)
-    \input{sections/typecasting}
-    
-	% DONE: exceptions
-    \input{sections/exceptions}
-
-\end{multicols*}
-
+    \begin{multicols*}{3}
+        \input{sections/title}
+        \input{sections/classes}	
+        \input{sections/references}
+        \input{sections/functionptrs}
+        \input{sections/memory.tex}
+        \input{sections/ops_n_libs.tex}
+        \input{sections/formatting.tex}
+        \input{sections/styleguide.tex}
+        \input{sections/compiler}    
+        \input{sections/makefiles}
+        \input{sections/assertions.tex}
+        \input{sections/templates}
+        \input{sections/typecasting}
+        \input{sections/exceptions}
+    \end{multicols*}
 \end{document}

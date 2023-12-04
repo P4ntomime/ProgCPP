@@ -6,12 +6,12 @@
     \mylstil{public}, \mylstil{protected} and \mylstil{private} members should be declared in that order.
 
 \subsection{Best practices}
-    \begin{enumerate}
+    \begin{itemize}
         \item Default ctor; further ctors if needed
         \item Every user-defined ctor should initialize all member variables
         \item label user-defined dtor with \mylstil{virtual}
         \item "rule of zero" (if possible): no user-defined ctors, dtors, copy-ctors, move-ctors, copy-assignment-operators, move-assignment-operators
-    \end{enumerate}
+    \end{itemize}
 
 \subsection{Ctors}
     \begin{tabularx}{\columnwidth}{@{}l X@{}}
@@ -46,14 +46,14 @@
     \subsubsection{Getter- and Setter-methods}
     Getter- and Setter-methods are used to control access to private members of a class. 
     They are public methods that return or set the value of a private member. 
-    They can be used to check the validity of the value to be set or to hide the implementation of the class (e.g. if the class is part of a library).
+    They can be used to check the validity of the value to be set or to hide the implementation of the class (e.g.\ if the class is part of a library).
     In certain cases the setter method can be declared as protected, if it is only to be used by the base- and derived classes.
 
     \subsection{UML (U\textcolor{gray}{nified} M\textcolor{gray}{odeling} L\textcolor{gray}{anguage})}
     \begin{center}
         \input{tikz/umldiag.tex}
     \end{center}
-    \vspace{-2mm}
+    \vspace{-3mm}
     \mylstil{static} methods can be called without an instance of a class. They can be called like \mylstbox{Super.staticMethod();}. \mylstbox{+publicVirtualMethod()} refers to a \textit{pure virtual} method.
     
 \subsection{Const}

@@ -1,34 +1,34 @@
 \section{Typecasting}
     \textcolor{teal}{Implicit} typecasting is allowed in following cases:
-    \begin{enumerate}
+    \begin{itemize}
         \item Between \textcolor{teal}{all numerical types} (including bool)
         \item Between \textcolor{teal}{\textbf{some} pointer types} (complicated ruels)
         \item Instances of a subclass can be implicitly assigned to a variable of the superclass type \mylstbox{SuperClass s = SubClass();}
-    \end{enumerate}
+    \end{itemize}
     \textcolor{violet}{Explicit} typecasting allows following operators:\vspace{1mm}\\
     \mylstbox[basicstyle=\sffamily\small]{static_cast<newType>(value of oldType)}: (most common)
-    \begin{enumerate}
+    \begin{itemize}
         \item Can cast pointer- and reference-types to instances of super- and subclasses in both directions.
         \item Can be used for all implicit casts.
         \item No typechecking at runtime.
-    \end{enumerate}
+    \end{itemize}
     \mylstbox[basicstyle=\sffamily\small]{dynamic_cast<newType>(value of oldType)}: (for polymorphic types)
-    \begin{enumerate}
+    \begin{itemize}
         \item Can cast pointer- and reference-types to instances of polymorphic super- and subclasses in both directions.
         \item Checks at runtime (with RTTI) if the cast is valid. Returns \mylstil{nullptr} if invalid.
         \item Can cast pointer- and reference-types of non-polymorphic subclasses to superclasses (up-casting), but not the other way round (down-casting).
-    \end{enumerate}
+    \end{itemize}
     \mylstbox[basicstyle=\sffamily\small]{const_cast<const type>(value of type)}: (only special cases)
-    \begin{enumerate}
+    \begin{itemize}
         \item Able to cast away const-ness or volatile-ness of a pointer or reference and the other way round.
-    \end{enumerate}
+    \end{itemize}
     \mylstbox[basicstyle=\sffamily\small]{reinterpret_cast<newType>(value of oldType)}: (only special cases)
-    \begin{enumerate}
+    \begin{itemize}
         \item Can cast pointer- and reference-types to any other pointer- and reference-types.
         \item No typechecking at runtime.
         \item Reinterprets the bits of the oldType as the newType.
         \item \mylstbox{reinterpret_cast} is platform dependent and should be avoided.
-    \end{enumerate}
+    \end{itemize}
 
 \begingroup
 \renewcommand{\arraystretch}{0.8}
