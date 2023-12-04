@@ -1,0 +1,14 @@
+\section{References}
+    References are used like an alias to a variable. 
+
+    With a variable \mylstbox{int var = 42;} a reference to it can be created with \mylstbox{int& myRef = var;}. 
+    
+    \mylstbox{myRef} can now be used exactly like \mylstbox{var}.
+    
+    References are never uninitialized and never have \mylstil{nullptr} as value.
+
+    It is unspecified whether or not a reference requires storage.
+
+\textbf{sizeof}: When using \mylstil{sizeof} on a reference, the size of the referenced object is returned.
+
+\textbf{const}: By using \mylstil{const} on a reference, the referenced object cannot be changed.

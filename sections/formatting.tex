@@ -1,0 +1,26 @@
+\section{std formatting --- \textcolor{orange}{<iomanip>} \textcolor{blue}{<iostream>}}
+\begin{tabularx}{\columnwidth}{@{}l l l@{}}
+    \toprule
+    \textbf{Flag} & \textbf{Description} &\textbf{Example}\\
+    \toprule
+    \mytclstbox[blue]{std::boolalpha}       & output bool as text               & \mylstbox[language=bash, keywordstyle=\color{black}]{true} or \mylstbox[language=bash, keywordstyle=\color{black}]{false}\\
+    \mytclstbox[blue]{std::fixed}           & output as fixed point             & \mylstbox[language=bash]{3.141593}\\
+    \mytclstbox[blue]{std::dec}             & output decimal                    & \mylstbox[language=bash]{42}\\
+    \mytclstbox[blue]{std::hex}             & output hexadecimal                & \mylstbox[language=bash]{2a}\\
+    \mytclstbox[blue]{std::oct}             & output octal                      & \mylstbox[language=bash]{52}\\
+    \mytclstbox[orange]{std::setprecision(6)} & set precision of next output      & \mylstbox[language=bash]{3.14159}\\
+    \mytclstbox[orange]{std::setw()}          & set width of next output          & \textit{see below}\\
+    \mytclstbox[orange]{std::setfill()}       & set fill character                & \mylstbox[language=bash]{*******-1.23}\\
+    \mytclstbox[blue]{std::internal}        & fill between sign and digits      & \mylstbox[language=bash]{-*******1.23}\\
+    \mytclstbox[blue]{std::left}            & fill on the right                 & \mylstbox[language=bash]{*******-1.23}\\
+    \mytclstbox[blue]{std::right}           & fill on the left                  & \mylstbox[language=bash]{-1.23*******}\\
+    \mytclstbox[blue]{std::scientific}      & output as scientific notation     & \mylstbox[language=bash]{3.141593e+00}\\
+    \mytclstbox[orange]{std::showbase}        & show base of numbers              & \mylstbox[language=bash]{0x2a}\\
+    \mytclstbox[orange]{std::showpoint}       & show decimal point                & \mylstbox[language=bash]{3.}\\
+    \mytclstbox[orange]{std::showpos}         & show sign of positive numbers     & \mylstbox[language=bash]{+42}\\
+    \mytclstbox[orange]{std::skipws}          & skip whitespace                   & \\
+    \mytclstbox[orange]{std::unitbuf}         & flush after each output           & \\
+    \mytclstbox[orange]{std::uppercase}       & use uppercase for hex \& float    & \mylstbox[language=bash]{2A}\\
+    \mytclstbox[orange]{std::nouppercase}     & use lowercase for hex \& float    & \mylstbox[language=bash]{2a}\\
+    \bottomrule
+\end{tabularx}

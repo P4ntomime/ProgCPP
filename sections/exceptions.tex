@@ -1,0 +1,12 @@
+\section{Exceptions}
+    Exceptions are thrown using the \mylstil{throw} keyword. Usually this is within a \mylstil{try...catch} block or a function within such a block.
+\vspace{-2mm}
+\lstinputlisting{snippets/except1.cpp}\vspace{-4mm}
+\hskip 0.2\columnwidth\rule[0mm]{0.6\columnwidth}{0.1pt}
+\vspace{-2mm}
+\lstinputlisting{snippets/except2.cpp}\vspace{-2mm}
+    If an error is thrown without a \mylstil{try...catch} block, \mylstbox{std::terminate()} is called, which ends the program.
+    The behaviour of this can be changed by setting a user-defined \mylstbox{std::terminate_handler} using \mylstbox{std::set_terminate()}.
+    
+    Functions and methods that don't throw exceptions should be marked with the \mylstil{noexcept} keyword. Otherwise \mylstil{noexcept(false)} can be used to mark a function that can throw exceptions.
+    \mylstbox{std::exception} can be found within \mylstbox{<stdexcept>}.

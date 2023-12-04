@@ -1,3 +1,2 @@
 *.synctex.gz
-./.vscode
-./.vscode/settings.json
+.vscode/

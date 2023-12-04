@@ -1,0 +1,31 @@
+\section{Templates}
+\subsection{Function templates}
+Function declaration:
+\vspace{-2mm}
+\lstinputlisting{snippets/funtemplate1.h}\vspace{-2mm}
+
+Function definition:
+\vspace{-2mm}
+\lstinputlisting{snippets/funtemplate2.h}\vspace{-2mm}
+Function templates can be used as \mylstbox{functionName<type1, type2,...>(param1, param2,...);} or \mylstbox{functionName(param1, param2, ...);}. The compiler will deduce the types of the template parameters from the function arguments.
+
+\subsection{Class templates}
+Class declaration:
+\vspace{-2mm}
+\lstinputlisting{snippets/classtemplate1.h}\vspace{-2mm}
+Class definition:
+\vspace{-2mm}
+\lstinputlisting{snippets/classtemplate2.h}\vspace{-2mm}
+Class templates can be used as \mylstbox{className<type1, type2,...> objectName;}. The compiler will deduce the types of the template parameters from the object declaration.
+
+\subsection{Rules}
+\begin{enumerate}
+    \item Templates are \textbf{always} evaluated at \textbf{compile time}.
+    \item To instantiate a template, the compiler needs to know following three things:
+    \begin{enumerate}
+        \item[1.] The template declaration
+        \item[2.] The template definition
+        \item[3.] Values for the template parameters
+    \end{enumerate}
+    \item Definition of template functions and methods need to be in the same file as the declaration (.h).
+\end{enumerate}

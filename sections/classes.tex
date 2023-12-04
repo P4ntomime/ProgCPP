@@ -1,0 +1,169 @@
+\section{Classes}
+    \vspace{-2mm}
+	\lstinputlisting{snippets/class.h}\vspace{-2mm}
+
+\subsection{Styleguide}
+    \mylstil{public}, \mylstil{protected} and \mylstil{private} members should be declared in that order.
+
+\subsection{Best practices}
+    \begin{enumerate}
+        \item Default ctor; further ctors if needed
+        \item Every user-defined ctor should initialize all member variables
+        \item label user-defined dtor with \mylstil{virtual}
+        \item "rule of zero" (if possible): no user-defined ctors, dtors, copy-ctors, move-ctors, copy-assignment-operators, move-assignment-operators
+    \end{enumerate}
+
+\subsection{Ctors}
+    \begin{tabularx}{\columnwidth}{@{}l X@{}}
+        \underline{Name:}          &Identical to class name\\
+        \underline{Returntype:}    &None! Not void!\\
+        \underline{Params:}        &Any\\
+                            &-- none: default ctor\\
+                            &-- const reference to own class: \textbf{copy-ctor}\\
+        \underline{Task:}          &Prepares/initializes class
+    \end{tabularx}
+
+\subsection{Dtors}
+    \begin{tabularx}{\columnwidth}{@{}l X@{}}
+        \underline{Name:}          &Identical to class name\\
+        \underline{Returntype:}    &None! Not void!\\
+        \underline{Params:}        &None\\
+        \underline{Task:}          &Deallocate memory/resources
+    \end{tabularx}
+    Only one destructor per class. (In some special cases overloading is possible)\newline
+    Automatically called when class is no longer needed.
+    
+\subsection{Visibility}
+    \begin{tabularx}{\columnwidth}{@{}l X@{}}
+        \underline{Public:}       & Visible to everyone (within class, in derived, wherever class is used)\\
+        \underline{Protected:}    & Only visible to class and derived classes\\
+        \underline{Private:}      & Only visible within class
+    \end{tabularx}
+    
+    \subsubsection{Friend attribute}
+    A method within a class can be declared as \mylstil{friend}. Said method is then globally accessible and can access private members of the class.
+
+    \subsubsection{Getter- and Setter-methods}
+    Getter- and Setter-methods are used to control access to private members of a class. 
+    They are public methods that return or set the value of a private member. 
+    They can be used to check the validity of the value to be set or to hide the implementation of the class (e.g. if the class is part of a library).
+    In certain cases the setter method can be declared as protected, if it is only to be used by the base- and derived classes.
+
+    \subsection{UML (U\textcolor{gray}{nified} M\textcolor{gray}{odeling} L\textcolor{gray}{anguage})}
+    \begin{center}
+        \input{tikz/umldiag.tex}
+    \end{center}
+    \vspace{-2mm}
+    \mylstil{static} methods can be called without an instance of a class. They can be called like \mylstbox{Super.staticMethod();}. \mylstbox{+publicVirtualMethod()} refers to a \textit{pure virtual} method.
+    
+\subsection{Const}
+    If \mylstil{const} is used after a method declaration, the method is not allowed to change any member variables of the class.
+
+    \mylstbox{int someFunction() const;}
+
+\subsection{Inheritance}
+	If a class is to be inherited from, its destructor needs to be defined as virtual.
+	A classic example of inheritance looks as follows:
+    \vspace{-1mm}
+	\lstinputlisting{snippets/inheritance.h}\vspace{-1mm}
+	Classes can be derived from as \mylstil{public}, \mylstil{protected} or \mylstil{private}. Default of \mylstil{class} is \mylstil{private}, default of \mylstil{struct} is \mylstil{public}.
+	This changes visibility of its inherited methods.
+    \begin{center}
+        \begin{tabular}{@{}l@{} c c@{}}
+            \toprule
+            \textbf{Inheritance visibility} & \textbf{visibility in base class} & \textbf{visibility in derived class}\\\toprule
+            public (default w/ \mylstil{struct})   &\begin{tikzpicture}[baseline=-0.55cm, remember picture]
+                                    \begin{scope}[every node/.style={fill=backcolour, minimum width=2cm, minimum height=0.45cm, align=center}]
+                                        \node (box1pub) {public};
+                                        \node[below=0.1mm of box1pub] (box1prot) {protected};
+                                        \node[below=0.1mm of box1prot] (box1priv) {private};
+                                    \end{scope}
+                                    \addvmargin{0.5mm}
+                                \end{tikzpicture}
+                                &\begin{tikzpicture}[baseline=-0.55cm, remember picture]
+                                    \begin{scope}[every node/.style={fill=backcolour, minimum width=2cm, minimum height=0.45cm, align=center}]
+                                        \node (box2pub) {public};
+                                        \node[below=0.1mm of box2pub] (box2prot) {protected};
+                                        \node[below=0.1mm of box2prot] (box2priv) {invisible};
+                                    \end{scope}
+                                    \addvmargin{0.5mm}
+                                \end{tikzpicture}\\\midrule
+            protected           &\begin{tikzpicture}[baseline=-0.55cm, remember picture]
+                                    \begin{scope}[every node/.style={fill=backcolour, minimum width=2cm, minimum height=0.45cm, align=center}]
+                                        \node (box3pub) {public};
+                                        \node[below=0.1mm of box3pub] (box3prot) {protected};
+                                        \node[below=0.1mm of box3prot] (box3priv) {private};
+                                    \end{scope}
+                                    \addvmargin{0.5mm}
+                                \end{tikzpicture}
+                                &\begin{tikzpicture}[baseline=-0.55cm, remember picture]
+                                    \begin{scope}[every node/.style={fill=backcolour, minimum width=2cm, minimum height=0.45cm, align=center}]
+                                        \node (box4pub) {\color{gray!50}public};
+                                        \node[below=0.1mm of box4pub] (box4prot) {protected};
+                                        \node[below=0.1mm of box4prot] (box4priv) {invisible};
+                                    \end{scope}
+                                    \addvmargin{0.5mm}
+                                \end{tikzpicture}\\\midrule
+            private (default w/ \mylstil{class})          &\begin{tikzpicture}[baseline=-0.55cm, remember picture]
+                                    \begin{scope}[every node/.style={fill=backcolour, minimum width=2cm, minimum height=0.45cm, align=center}]
+                                        \node (box5pub) {public};
+                                        \node[below=0.1mm of box5pub] (box5prot) {protected};
+                                        \node[below=0.1mm of box5prot] (box5priv) {private};
+                                    \end{scope}
+                                    \addvmargin{0.5mm}
+                                \end{tikzpicture}
+                                &\begin{tikzpicture}[baseline=-0.55cm, remember picture]
+                                    \begin{scope}[every node/.style={fill=backcolour, minimum width=2cm, minimum height=0.45cm, align=center}]
+                                        \node (box6pub) {\color{gray!50}public};
+                                        \node[below=0.1mm of box6pub] (box6prot) {\color{gray!50}protected};
+                                        \node[below=0.1mm of box6prot] (box6priv) {\footnotesize private / invisibel};
+                                    \end{scope}
+                                    \addvmargin{0.5mm}
+                                \end{tikzpicture}\\\bottomrule
+        \end{tabular}
+    \end{center}
+    \begin{tikzpicture}[overlay, remember picture, >={Triangle[width=1.5mm, length=1.5mm]}]
+        \draw[->] (box1pub.east) -- (box2pub.west);
+        \draw[->] (box1prot.east) -- (box2prot.west);
+        \draw[->] (box1priv.east) -- (box2priv.west);
+
+        \draw[->] (box3pub.east) -- (box4prot.west);
+        \draw[->] (box3prot.east) -- (box4prot.west);
+        \draw[->] (box3priv.east) -- (box4priv.west);
+
+        \draw[->] (box5pub.east) -- (box6priv.west) node[rotate=-27, midway, below=-1mm,xshift=-1mm] {\footnotesize private};
+        \draw[->] (box5prot.east) -- (box6priv.west);
+        \draw[->] (box5priv.east) -- (box6priv.west) node[midway, below=-0.5mm, xshift=-1mm] {\footnotesize invisible};
+    \end{tikzpicture}\vspace{-2mm}
+\subsubsection{ctor- and dtor-chaining}
+    Order of ctor calls: base class(es) first, then derived class(es).\newline
+    Order of dtor calls: derived class(es) first, then base class(es).\newline
+    Example:
+    \vspace{-2mm}
+    \lstinputlisting{snippets/ctorchaining.cpp}\vspace{-2mm}
+    Ctors are automatically chained, but can be explicitly called as well with an initializer list like in the example.
+
+\subsubsection{vtable}
+    \vspace{-2mm}
+    \lstinputlisting{snippets/vtable.h}\vspace{-2mm}
+    Previous code snippet of polymorphic code produces following memory map:
+    \begin{center}
+        \input{tikz/vtable.tex}
+    \end{center}
+
+\subsubsection{Redefinition of methods}
+    Inherited methods can be redefined in derived classes. If said methods are declared as \textcolor{cactgreen}{\textbf{non-virtual}}, \textcolor{cactgreen}{\textbf{static binding}} is applied and it is determined at \textcolor{cactgreen}{\textbf{compile time}}, whether the base class' or the derived class' method is called. (depending on pointer or reference type)\newline
+    If the method is declared as \textcolor{purple}{\textit{\textbf{virtual}}}, \textcolor{purple}{\textit{\textbf{dynamic binding}}} is applied at \textcolor{purple}{\textit{\textbf{runtime}}} and the derived class' method is called, even if the pointer or reference type is of the base class.
+
+    Example:
+    \vspace{-2mm}
+    \lstinputlisting{snippets/polymorph.h}\vspace{-2mm}
+    Classes that are declared as \textit{pure virtual} have no methods defined (method = 0) and cannot be instantiated. They can only be used as base classes for other classes. This is called an interface.
+
+\subsection{Operator Overloading}
+    Following operators can be overloaded:
+    \vspace{-2mm}
+    \lstinputlisting[numbers=none, backgroundcolor=\color{white}]{snippets/overloadable.h}\vspace{-2mm}
+    Example:
+    \vspace{-2mm}
+    \lstinputlisting{snippets/classopov.h}\vspace{-2mm}

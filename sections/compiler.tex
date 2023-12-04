@@ -1,0 +1,13 @@
+\section{Compiler Arguments}
+    Compiling with clang++: \mylstbox[language=bash]{clang++ -Wall -o main main.cpp}
+
+    With multiple source files: \mylstbox[language=bash]{clang++ -Wall -o main main.cpp other.cpp}
+
+    Following are the most commonly used compiler arguments for clang++:
+    
+    \begin{tabular}{@{}l l@{}}
+        -Wall & Enable all warnings \\
+        -o & Output file \\
+        -c & Compile to object file (mainly used in makefiles)\\
+        -std=c++11 & Use C++11 standard
+    \end{tabular}

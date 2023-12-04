@@ -1,0 +1,27 @@
+\begin{tikzpicture}
+    \umlclass[x=-2.7]{Super}{
+        -privateMember: int\\
+        \#protectedMember: char\\
+        +publicMember: bool
+    }{
+        +publicMethod(): void\\
+        \umlvirt{+publicVirtualMethod(parameter: int): void}\\
+        \umlstatic{+staticMethod(): void}\\
+        -privateMethod(): bool\\
+        \#protectedMethod(value: int): char\\
+        +Super()\\
+    }
+%     \node at (-1.75, 0.5) (pm) {};
+%     \node at (-1.75, -0.4) (pmet) {};
+%     \draw (pm) -- (-3.5,0.5) node[anchor=east] {Name} -- (pmet);
+%     \node at (0.25, 0.5) (pmty) {};
+%     \node at (1.8, -0.4) (pmetty) {};
+%     \draw (pmty) -- (3.5,0.5) node[anchor=west] {(return)Type} -- (pmetty);
+    \umlclass[x=2.5]{Derived}{
+        +publicMember: bool
+    }{
+        +publicMethod(): void\\
+        +Derived()\\
+    }
+    \umlinherit[geometry=--]{Derived}{Super}
+\end{tikzpicture}

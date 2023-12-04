@@ -1,0 +1,53 @@
+\section{Typecasting}
+    \textcolor{teal}{Implicit} typecasting is allowed in following cases:
+    \begin{enumerate}
+        \item Between \textcolor{teal}{all numerical types} (including bool)
+        \item Between \textcolor{teal}{\textbf{some} pointer types} (complicated ruels)
+        \item Instances of a subclass can be implicitly assigned to a variable of the superclass type \mylstbox{SuperClass s = SubClass();}
+    \end{enumerate}
+    \textcolor{violet}{Explicit} typecasting allows following operators:\vspace{1mm}\\
+    \mylstbox[basicstyle=\sffamily\small]{static_cast<newType>(value of oldType)}: (most common)
+    \begin{enumerate}
+        \item Can cast pointer- and reference-types to instances of super- and subclasses in both directions.
+        \item Can be used for all implicit casts.
+        \item No typechecking at runtime.
+    \end{enumerate}
+    \mylstbox[basicstyle=\sffamily\small]{dynamic_cast<newType>(value of oldType)}: (for polymorphic types)
+    \begin{enumerate}
+        \item Can cast pointer- and reference-types to instances of polymorphic super- and subclasses in both directions.
+        \item Checks at runtime (with RTTI) if the cast is valid. Returns \mylstil{nullptr} if invalid.
+        \item Can cast pointer- and reference-types of non-polymorphic subclasses to superclasses (up-casting), but not the other way round (down-casting).
+    \end{enumerate}
+    \mylstbox[basicstyle=\sffamily\small]{const_cast<const type>(value of type)}: (only special cases)
+    \begin{enumerate}
+        \item Able to cast away const-ness or volatile-ness of a pointer or reference and the other way round.
+    \end{enumerate}
+    \mylstbox[basicstyle=\sffamily\small]{reinterpret_cast<newType>(value of oldType)}: (only special cases)
+    \begin{enumerate}
+        \item Can cast pointer- and reference-types to any other pointer- and reference-types.
+        \item No typechecking at runtime.
+        \item Reinterprets the bits of the oldType as the newType.
+        \item \mylstbox{reinterpret_cast} is platform dependent and should be avoided.
+    \end{enumerate}
+
+\begingroup
+\renewcommand{\arraystretch}{0.8}
+    \begin{tabularx}{\columnwidth}{@{}l c l l c@{}}
+        \toprule
+        \textbf{Previous type}  &               & \textbf{New type}         & \textbf{Cast-type}                    &\textbf{Implicit}\\
+        \toprule
+        \mylstbox{float}        & $\rightarrow$ & \mylstbox{double}         & \mylstbox{static_cast}                & \cmark\\
+        \mylstbox{int*}         & $\rightarrow$ & \mylstbox{unsigned int*}  & \mylstbox{reinterpret_cast}           & \xmark\\
+        \mylstbox{const Animal} & $\rightarrow$ & \mylstbox{Animal}         & no cast                               & \cmark\\
+        \mylstbox{Animal*}      & $\rightarrow$ & \mylstbox{Bird*}          & \mylstbox{dynamic_cast}               & \xmark\\
+        \mylstbox{int}          & $\rightarrow$ & \mylstbox{float}          & \mylstbox{static_cast}                & \cmark\\
+        \mylstbox{Bird*}        & $\rightarrow$ & \mylstbox{int*}           & \mylstbox{reinterpret_cast}           & \xmark\\
+        \mylstbox{int}          & $\rightarrow$ & \mylstbox{bool}           & \mylstbox{static_cast}                & \cmark\\
+        \mylstbox{volatile int*}& $\rightarrow$ & \mylstbox{volatile short*}& \mylstbox{reinterpret_cast}           & \xmark\\
+        \mylstbox{Bird}         & $\rightarrow$ & \mylstbox{Animal}         & \mylstbox{static_cast}                & \cmark\\
+        \mylstbox{volatile int*}& $\rightarrow$ & \mylstbox{int*}           & \mylstbox{const_cast}                 & \xmark\\
+        \mylstbox{Bird*}        & $\rightarrow$ & \mylstbox{Animal*}        & \mylstbox{static_cast / dynamic_cast} & \cmark\\
+        \mylstbox{int&}         & $\rightarrow$ & \mylstbox{short&}         & \mylstbox{reinterpret_cast}           & \xmark\\
+        \bottomrule
+    \end{tabularx}
+\endgroup

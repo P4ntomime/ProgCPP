@@ -1,0 +1,74 @@
+% \begin{tikzpicture}
+%     \umlclass[type=abstract]{Dog}{
+%         -name_: string
+%     }{
+%         +Dog(name: string)\\
+%         +\umlvirt{sit():void}\\
+%         +\umlvirt{bark(): void}\\
+%         +\umlvirt{getName(): void}
+%     }
+%     \umlclass[y=-2.5]{Husky}{
+
+%     }{
+%         +Husky(name: string)\\
+%         +sit(): void\\
+%         +bark(): void\\
+%     }
+%     \umlinherit[geometry=--]{Husky}{Dog}
+%     \node[right=1.5cm of Dog, style={inner sep=0,outer sep=0}] (DogVtable) {%
+%         \begin{tabular}{@{}c c@{}}
+%             \toprule
+%             {\bf\sffamily Method} &{\bf\sffamily Implementation}\\\toprule
+%             {\sffamily sit()} &{\sffamily NULL}\\
+%             {\sffamily bark()} &{\sffamily Dog::bark()}\\
+%             {\sffamily getName()} &{\sffamily Dog::getName()}\\\bottomrule
+%         \end{tabular}};
+%     \draw[dashed, dash pattern=on 1mm off 1mm] (Dog) -- (DogVtable);
+%     \node[right=1.5cm of Husky, style={inner sep=0,outer sep=0}] (HuskyVtable) {%
+%         \begin{tabular}{@{}c c@{}}
+%             \toprule
+%             {\bf\sffamily Method} &{\bf\sffamily Implementation}\\\toprule
+%             {\sffamily sit()} &{\sffamily Husky::sit()}\\
+%             {\sffamily bark()} &{\sffamily Husky::bark()}\\
+%             {\sffamily getName()} &{\sffamily Dog::getName()}\\\bottomrule
+%         \end{tabular}};
+%     \draw[dashed, dash pattern=on 1mm off 1mm] (Husky) -- (HuskyVtable);
+% \end{tikzpicture}
+
+\begin{tikzpicture}[font=\sffamily\small]
+    \node[draw, minimum width=1.5cm, minimum height=0.3cm] (petvt0) {};
+    \node[draw, minimum width=1.5cm, minimum height=0.3cm, above=-0.1mm of petvt0] (petvt1) {};
+    \node[left=1mm of petvt0] {0};
+    \node[left=1mm of petvt1] {1};
+    \node[below=0mm of petvt0.south west] {\bfseries pet};
+    
+    \node[draw, minimum width=1.5cm, minimum height=0.3cm, right=1.5cm of petvt1] (hskymm1) {};
+    \node[draw, minimum width=1.5cm, minimum height=0.3cm, inner sep=0.7mm, anchor=west, below=-0.1mm of hskymm1] (hskymm0) {\bfseries "don"};
+    
+    \node[draw, minimum width=1.5cm, minimum height=0.3cm, below=0.5cm of hskymm0] (dogmm1) {};
+    \node[draw, minimum width=1.5cm, minimum height=0.3cm, inner sep=0.7mm, anchor=west, below=-0.1mm of dogmm1] (dogmm0) {\bfseries "bud"};
+    
+    \node[draw, text width=2.1cm, minimum height=0.3cm, inner sep=0.7mm, anchor=west, right=1.5cm of hskymm1] (hskyvt3) {\lstinline[basicstyle=\sffamily\bfseries\small]{Husky::~Husky()}};
+    \node[draw, text width=2.1cm, minimum height=0.3cm, inner sep=0.7mm, anchor=west, below=-0.1mm of hskyvt3] (hskyvt2) {\lstinline[basicstyle=\sffamily\bfseries\small]{Husky::sit()}};
+    \node[draw, text width=2.1cm, minimum height=0.3cm, inner sep=0.7mm, anchor=west, below=-0.1mm of hskyvt2] (hskyvt1) {\lstinline[basicstyle=\sffamily\bfseries\small]{Husky::bark()}};
+    \node[draw, text width=2.1cm, minimum height=0.3cm, inner sep=0.7mm, anchor=west, below=-0.1mm of hskyvt1] (hskyvt0) {\lstinline[basicstyle=\sffamily\bfseries\small]{Dog::getName()}};
+    \node[rectangle, text width=2.1cm, minimum height=0.3cm, anchor=west, below=-0.5mm of hskyvt0, xshift=-0.5mm] {vtable Husky};
+    
+    \node[draw, text width=2.1cm, minimum height=0.3cm, inner sep=0.7mm, anchor=west, below=0.3cm of hskyvt0] (dogvt3) {\lstinline[basicstyle=\sffamily\bfseries\small]{Dog::~Dog()}};
+    \node[draw, text width=2.1cm, minimum height=0.3cm, inner sep=0.7mm, anchor=west, below=-0.1mm of dogvt3] (dogvt2) {\lstinline[basicstyle=\sffamily\bfseries\small]{Dog::sit()}};
+    \node[draw, text width=2.1cm, minimum height=0.3cm, inner sep=0.7mm, anchor=west, below=-0.1mm of dogvt2] (dogvt1) {\lstinline[basicstyle=\sffamily\bfseries\small]{Dog::bark()}};
+    \node[draw, text width=2.1cm, minimum height=0.3cm, inner sep=0.7mm, anchor=west, below=-0.1mm of dogvt1] (dogvt0) {\lstinline[basicstyle=\sffamily\bfseries\small]{Dog::getName()}};
+    \node[rectangle, text width=2.1cm, minimum height=0.3cm, anchor=west, below=-0.5mm of dogvt0, xshift=-0.5mm] {vtable Dog};
+
+    \draw[-{Triangle[width=1.5mm, length=1.5mm]}] (petvt0.center) -- (dogmm0.south west);
+    \draw[-{Triangle[width=1.5mm, length=1.5mm]}] (petvt1.center) -- (hskymm0.south west);
+    \draw[-{Triangle[width=1.5mm, length=1.5mm]}] (dogmm1.center) -- (dogvt0.south west);
+    \draw[-{Triangle[width=1.5mm, length=1.5mm]}] (hskymm1.center) -- (hskyvt0.south west);
+    
+    \node[circle, fill=black, minimum size=1.25mm, inner sep=0mm, outer sep=0mm] at (petvt0.center) {};
+    \node[circle, fill=black, minimum size=1.25mm, inner sep=0mm, outer sep=0mm] at (petvt1.center) {};
+    \node[circle, fill=black, minimum size=1.25mm, inner sep=0mm, outer sep=0mm] at (dogmm1.center) {};
+    \node[circle, fill=black, minimum size=1.25mm, inner sep=0mm, outer sep=0mm] at (hskymm1.center) {};
+
+\end{tikzpicture}
+% \columnbreak

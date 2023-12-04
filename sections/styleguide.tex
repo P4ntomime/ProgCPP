@@ -1,0 +1,15 @@
+\section{Styleguide}
+\begin{tabularx}{\columnwidth}{@{}l l@{}}
+    \toprule
+    \textbf{.h}                                 & \textbf{.cpp} \\
+    \toprule
+    include guard \mylstbox{#pragma once}       & header-comment \\
+    header-comment                              & include own headers "\ldots"\\
+    include system libraries <\ldots>           & include system libraries <\ldots>\\
+    include projectspecific libraries "\ldots"  & include projectspecific libraries "\ldots"\\
+    definition of constants                     & global / static variables\\
+    typedefs, structs, classes                  & preprocessor directives\\
+    extern-declaration of global variables      & function prototypes\\
+    function prototypes                         & function / class definitions\\
+                                                \bottomrule
+\end{tabularx}

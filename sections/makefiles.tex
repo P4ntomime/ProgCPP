@@ -1,0 +1,20 @@
+\section{Makefiles}
+    Used to automate compilation process. Useful when working with multiple source files. \texttt{make} checks which files have changed and only compiles those (timestamps).\vspace{-1mm}
+    \lstinputlisting[language=make, keywordstyle=\color{black}, escapechar=!]{snippets/Makefile}\vspace{-2mm}
+    
+    \begin{tikzpicture}[remember picture, overlay, >={Triangle[width=1.5mm, length=1.5mm]}]
+        \node [right = 2cm of depend, text width=3cm] (deptext) {\sffamily Dependencies};
+        \node [above = -1.5mm of deptext, text width=3cm] (tgttext) {\sffamily Target};
+        \node [below = 6mm of deptext, text width=3cm] (tabtext) {\sffamily Tab (very important)};
+
+        \draw[->, rounded corners=2pt] (tgttext) -| (target.north);
+        \draw[->, rounded corners=2pt] (deptext) -- (depend);
+        \draw[->, rounded corners=2pt] (tabtext) -| (indent.south);
+    \end{tikzpicture}
+    \begin{tabular}{@{}l l@{}}
+        .PHONY: &Targets that do not produce an output are called \say{phony targets}.\\
+        \$@ &Filename of target\\
+        \$\textless{} &Filename of first dependency\\
+        \$\textasciicircum{} &List of all dependencies\\
+    \end{tabular}
+    
